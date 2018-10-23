@@ -1,0 +1,55 @@
+@import "../components/callTree/callTree.less";
+@import "../components/traceGraph/traceGraph.less";
+@import "../components/traceList/traceList.less";
+
+.stagemonitor-kibana {
+
+  .stagemonitor-trace-tab {
+    padding: 1em;
+  }
+
+  .table.span-details {
+    background-color: #fafafa;
+  }
+
+  .doc-viewer td {
+    font-family: "Lucida Console", Monaco, monospace;
+  }
+
+  .hint {
+    margin-top: 2em;
+  }
+
+  .nav-tabs {
+    border-bottom: 3px solid #d8d8d8;
+  }
+
+  .nav-tabs > li {
+    margin-bottom: -3px;
+    cursor: pointer;
+    background: none;
+  }
+
+  .nav-tabs > li > a {
+    border: none;
+    border-bottom: 3px solid transparent;
+    margin-right: 0.6em;
+    margin-left: 0.2em;
+  }
+
+  .nav-tabs > li.active > a,
+  .nav-tabs > li > a:hover {
+    cursor: default;
+    color: #000;
+    background-color: transparent;
+    border: none;
+    border-bottom: 3px solid #e8488b;
+    text-decoration: none;
+  }
+
+  .nav-tabs > li:not(.active):hover > a {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+}
