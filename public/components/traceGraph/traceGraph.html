@@ -17,11 +17,11 @@
     </h3>
 
     <ul class="nav nav-tabs" role="tablist">
-      <li ng-class="openedTab === 'attributes' ? 'active' : ''" ng-click="openedTab = 'attributes'"><a>Tags</a></li>
-      <li ng-class="openedTab === 'calltree' ? 'active' : ''" ng-click="openedTab = 'calltree'" ng-if="selectedSpan.fields.call_tree_json"><a>Call tree</a></li>
+      <li ng-class="tabState.openedTab === 'attributes' ? 'active' : ''" ng-click="tabState.openedTab = 'attributes'"><a>Tags</a></li>
+      <li ng-class="tabState.openedTab === 'calltree' ? 'active' : ''" ng-click="tabState.openedTab = 'calltree'" ng-if="selectedSpan.fields.call_tree_json"><a>Call tree</a></li>
     </ul>
 
-    <div class="doc-viewer stagemonitor-trace-tab" ng-if="openedTab === 'attributes'">
+    <div class="doc-viewer stagemonitor-trace-tab" ng-if="tabState.openedTab === 'attributes'">
       <table class="table table-condensed span-details">
         <thead>
           <tr>
@@ -42,7 +42,7 @@
       </table>
     </div>
 
-    <div class="stagemonitor-trace-tab" ng-if="openedTab === 'calltree'">
+    <div class="stagemonitor-trace-tab" ng-if="tabState.openedTab === 'calltree'">
 
       <div ng-if="showCallTreeWarning" class="alert alert-info">
         <div class="tip pull-right" data-toggle="tooltip" data-placement="left" title="Don't show again" >

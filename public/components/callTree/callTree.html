@@ -1,4 +1,4 @@
-<table class="callTree">
+<table class="callTree" ng-controller="callTreeController">
 
   <thead>
   <tr>
@@ -15,7 +15,7 @@
   </thead>
 
   <tbody>
-  <tr ng-repeat="row in ::ctrl.callTree"
+  <tr ng-repeat="row in ::callTree"
       ng-class="{warning: row.executionTimeExceededThreshold}"
       data-tt-expanded="{{row.anyChildExceedsThreshold ? 'true' : 'false'}}"
       data-tt-parent-id="{{row.parentId}}"

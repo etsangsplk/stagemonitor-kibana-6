@@ -1,5 +1,5 @@
 {
-  "name": "stagemonitor_kibana_6",
+  "name": "stagemonitor-kibana-6",
   "version": "0.0.0",
   "description": "Stagemonitor Kibana Plugin",
   "main": "index.js",
@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "dagre-d3-webpack": "0.4.17",
-    "flat": "^4.0.0",
+    "flat": "^4.1.0",
     "jquery": ">=1.6"
   },
   "devDependencies": {

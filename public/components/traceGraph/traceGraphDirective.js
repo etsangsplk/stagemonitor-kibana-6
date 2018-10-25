@@ -1,16 +1,11 @@
-define(function (require) {
+import traceGraphTemplate from './traceGraph.html';
 
-  const traceGraph = require('./traceGraph.html');
-
-  const app = require('ui/modules').get('apps/stagemonitorKibana6');
-
-  app.directive('traceGraph', function () {
-    return {
-      template: traceGraph,
-      restriction: 'E',
-      scope: {
-        trace: '='
-      }
-    };
-  });
-});
+export default () => {
+  return {
+    template: traceGraphTemplate,
+    restriction: 'E',
+    scope: {
+      trace: '='
+    }
+  };
+};

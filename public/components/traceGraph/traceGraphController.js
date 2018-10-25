@@ -1,34 +1,30 @@
 import _ from 'lodash';
-import d3 from 'd3';
+import d3  from 'd3';
 import dagreD3 from 'dagre-d3-webpack';
 import flat from 'flat';
-import $ from 'jquery';
+import $  from 'jquery';
 
 export default function traceGraphController($scope, $element, elasticsearchService) {
-  const vm = this;
-  vm.spans = [];
-  vm.selectedSpan = null;
-  vm.selectedSpanProperties = [];
-  vm.trace = $scope.trace;
-  vm.showCallTreeWarning = !localStorage.getItem('callTreeWarningDiscarded');
-  vm.hideCallTreeWarning = hideCallTreeWarning;
+  $scope.spans = [];
+  $scope.selectedSpan = null;
+  $scope.tabState = {};
+  $scope.tabState.openedTab = 'attributes';
+  $scope.selectedSpanProperties = [];
+  $scope.showCallTreeWarning = !localStorage.getItem('callTreeWarningDiscarded');
+  $scope.hideCallTreeWarning = hideCallTreeWarning;
 
-  setTimeout(function () {
-    console.log($scope.trace);    // this will return the actual value...
-  }, 1000);
-
-  loadSpansOfTrace(vm.trace);
+  loadSpansOfTrace($scope.trace);
 
   function hideCallTreeWarning() {
     localStorage.setItem('callTreeWarningDiscarded', true);
-    vm.showCallTreeWarning = false;
+    $scope.showCallTreeWarning = false;
   }
 
   function loadSpansOfTrace(trace) {
     elasticsearchService.searchAllSpansFor(trace._source.trace_id)
       .then((response) => {
-        vm.spans = response.data.hits.hits;
-        render(vm.spans);
+        $scope.spans = response.data.hits.hits;
+        render($scope.spans);
       });
   }
 
@@ -104,7 +100,7 @@ export default function traceGraphController($scope, $element, elasticsearchServ
 
     // Create the renderer
     const render = new dagreD3.render();
-    const svgSelector = '#trace-' + vm.trace._source.trace_id;
+    const svgSelector = '#trace-' + $scope.trace._source.trace_id;
     const svg = d3.select(svgSelector);
     const svgGroup = svg.select('g');
     const zoom = initializeZoom();
@@ -142,20 +138,20 @@ export default function traceGraphController($scope, $element, elasticsearchServ
 
       const props = flattenSpanSource(node.span._source);
       $scope.$apply(() => {
-        vm.selectedSpanProperties = [];
-        vm.selectedSpan = node.span;
-        vm.selectedSpanProperties = _.sortBy(props, 'propName');
+        $scope.selectedSpanProperties = [];
+        $scope.selectedSpan = node.span;
+        $scope.selectedSpanProperties = _.sortBy(props, 'propName');
 
         const hasCallTree = node.span.fields && node.span.fields.call_tree_json;
-        if (!vm.openedTab || (vm.openedTab === 'calltree' && !hasCallTree)) {
-          vm.openedTab = 'attributes';
+        if (!$scope.tabState.openedTab || ($scope.tabState.openedTab === 'calltree' && !hasCallTree)) {
+          $scope.tabState.openedTab = 'attributes';
         }
       });
     }
 
     function openCallTree() {
       const clickedNodeId = $(this).closest('.node--span').data('id');
-      vm.openedTab = 'calltree';
+      $scope.tabState.openedTab = 'calltree';
       openSpanDetails(clickedNodeId);
     }
 

@@ -27,7 +27,6 @@ export default class ElasticsearchService {
   }
 
   searchSpans(searchObject) {
-    console.log(searchObject);
     return this.$http.post('../api/stagemonitor-kibana-6/search/es/stagemonitor-spans-*', searchObject);
   }
 
