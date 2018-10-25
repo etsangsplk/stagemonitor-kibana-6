@@ -90,6 +90,7 @@ export default function traceListController($routeParams, elasticsearchService, 
   }
 
   function onClickTrace(trace) {
+    console.log(trace);
     if (_.includes(vm.openedTraces, trace)) {
       _.pull(vm.openedTraces, trace);
     } else {

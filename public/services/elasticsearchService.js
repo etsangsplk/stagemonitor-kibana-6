@@ -27,6 +27,7 @@ export default class ElasticsearchService {
   }
 
   searchSpans(searchObject) {
+    console.log(searchObject);
     return this.$http.post('../api/stagemonitor-kibana-6/search/es/stagemonitor-spans-*', searchObject);
   }
 
@@ -40,8 +41,8 @@ export default class ElasticsearchService {
       }
     }).then(res => {
       const hit = res.data.hits.hits[0];
-      const index = hit._source['index-pattern'];
-      const fields = JSON.parse(index.fields);
+      const indexPattern = hit._source['index-pattern'];
+      const fields = JSON.parse(indexPattern.fields);
       const tracingVisualization = {
         aggregatable: true,
         analyzed: false,
@@ -61,9 +62,9 @@ export default class ElasticsearchService {
         _.remove(fields, _.matchesProperty('name', 'trace_visualization'));
       }
       fields.push(tracingVisualization);
-      index.fields = JSON.stringify(fields);
+      indexPattern.fields = JSON.stringify(fields);
 
-      const fieldFormatMap = JSON.parse(index.fieldFormatMap || '{}');
+      const fieldFormatMap = JSON.parse(indexPattern.fieldFormatMap || '{}');
       fieldFormatMap.trace_visualization = {
         id: 'url',
         params: {
@@ -71,10 +72,10 @@ export default class ElasticsearchService {
           'urlTemplate': '../app/stagemonitor-kibana#/trace/{{value}}'
         }
       };
-      index.fieldFormatMap = JSON.stringify(fieldFormatMap);
+      indexPattern.fieldFormatMap = JSON.stringify(fieldFormatMap);
 
       // ../elasticsearch/.kibana/*/
-      this.$http.post('../api/stagemonitor-kibana-6/update/es/' + hit._id, { doc: index });
+      //this.$http.post('../api/stagemonitor-kibana-6/update/es/' + hit._id, { doc: indexPattern });
     });
   }
 

@@ -21,15 +21,16 @@ export default function (server) {
     path: '/api/stagemonitor-kibana-6/update/es/{hitId}',
     method: 'POST',
     handler(request, reply) {
-      /*const dataCluster = server.plugins.elasticsearch.getCluster('data');
+      const dataCluster = server.plugins.elasticsearch.getCluster('data');
       dataCluster.callWithRequest(request, 'update', {
-        index: '.kibana'
+        index: '.kibana',
+        type: '*',
+        id: request.params.hitId,
+        body: request.payload
       }).then(function (response) {
         console.log(response);
         reply(response);
-      });*/
-      console.log(request.params.hitId);
-      reply('TODO: implement');
+      });
     }
   }]);
 

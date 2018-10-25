@@ -11,8 +11,10 @@ import { Main } from './components/main';
 import traceListTemplate from './components/traceList/traceList.html';
 import ElasticsearchService from './services/elasticsearchService';
 import traceListController from './components/traceList/traceListController';
-import traceGraph from './components/traceGraph/traceGraphDirective';
 import callTree from './components/callTree/callTreeDirective';
+
+const traceGraph = require('./components/traceGraph/traceGraphDirective');
+const traceGraphController = require('./components/traceGraph/traceGraphController')
 
 const app = uiModules.get('apps/stagemonitorKibana6');
 
@@ -42,6 +44,7 @@ uiRoutes
 
 app.service('elasticsearchService', ElasticsearchService)
   .controller('traceListController', traceListController)
+  .controller('traceGraphController', traceGraphController)
   .directive('traceGraph', traceGraph)
   .directive('callTree', callTree)
   .run((elasticsearchService) => {
