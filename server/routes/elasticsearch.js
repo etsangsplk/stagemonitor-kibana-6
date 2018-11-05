@@ -6,13 +6,11 @@ export default function (server) {
     path: '/api/stagemonitor-kibana-6/search/es/{esIndex}',
     method: 'POST',
     handler(request, reply) {
-      console.log(request.payload);
       const dataCluster = server.plugins.elasticsearch.getCluster('data');
       dataCluster.callWithRequest(request, 'search', {
         index: request.params.esIndex,
         body: request.payload
       }).then(function (response) {
-        console.log(response);
         reply(response);
       });
     }
@@ -28,7 +26,6 @@ export default function (server) {
         id: request.params.hitId,
         body: request.payload
       }).then(function (response) {
-        console.log(response);
         reply(response);
       });
     }
